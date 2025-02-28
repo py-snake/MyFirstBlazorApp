@@ -6,13 +6,59 @@
 <h1>Number: @num</h1>
 
 <button class="bigbluebutton" @onclick="IncrementNum">Increment</button>
+<button class="bigredbutton" @onclick="ResetNum">Reset</button>
+
+<div>
+    <p>Enter @textMaxLength characters into the following form (Remaining: @RemainingTextCharacters()):</p>
+    <input type="text" @oninput="HandleInput" maxlength="@textMaxLength"/>
+    <br/>
+    <div class="progress-container">
+        <div class="progress-bar" style="width: @UsedTextLengthPercent()%;"></div>
+    </div>
+    <p>@text</p>
+</div>
+
+
 
 @code {
-    private int num = 15;
+    private int num = 0;
+    private string text = "";
+    private int textMaxLength = 10;
 
     private void IncrementNum()
     {
-        this.num += 1;
+        this.num++;
     }
+
+    private void ResetNum()
+    {
+        this.num = 0;
+    }
+
+    private void HandleInput(ChangeEventArgs e)
+    {
+        string newText = e.Value?.ToString() ?? string.Empty;
+        if (newText.Length <= textMaxLength)
+        {
+            text = newText;
+        }
+    }
+
+    private int RemainingTextCharacters()
+    {
+        return textMaxLength - text?.Length ?? 0;
+    }
+
+    private int UsedTextLengthPercent()
+    {
+        if (textMaxLength <= 0)
+        {
+            return 0;
+        }
+
+        double percent = (text?.Length ?? 0 / textMaxLength) * 10;
+        return (int)Math.Round(percent, 0);
+    }
+
 }
 
