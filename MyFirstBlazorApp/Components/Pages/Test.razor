@@ -10,7 +10,7 @@
 <button class="bigredbutton" @onclick="ResetNum">Reset</button>
 
 <div>
-    <p>Enter @textMaxLength characters into the following form (Remaining: @RemainingTextCharacters()):</p>
+    <p>Enter <input type="number" @bind="textMaxLength"/> characters into the following form (Remaining: @RemainingTextCharacters()):</p>
     <input type="text" @oninput="HandleInput" maxlength="@textMaxLength"/>
     <br/>
     <div class="progress-container">
