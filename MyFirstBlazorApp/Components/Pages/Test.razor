@@ -1,0 +1,17 @@
+﻿@page "/test"
+@rendermode InteractiveServer
+
+<h3>Test</h3>
+
+<h1>Number: @num</h1>
+
+<button class="mycssclass" @onclick="IncrementNum">Increment</button>
+
+@code {
+    private int num = 15;
+
+    private void IncrementNum()
+    {
+        this.num += 1;
+    }
+}
