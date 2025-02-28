@@ -3,3 +3,26 @@
     color: green;
 }
 
+.bigbluebutton {
+    background-color: cyan;
+    color: black;
+    border: 1px solid red;
+    border-bottom-width: 2px;
+    border-bottom-color: blue;
+    border-radius: 4px;
+    padding: 10px;
+    margin: 10px;
+    box-shadow: 10px 10px 5px 4px lightgrey;
+    text-align: center;
+    transition-duration: 0.1s;
+}
+
+.bigbluebutton:hover {
+    box-shadow: 10px 10px 5px 4px grey;
+    transition-duration: 0.1s;
+}
+
+.bigbluebutton:active {
+    transform: translateY(4px) translateX(1px);
+}
+
