@@ -1,0 +1,21 @@
+﻿.card-container {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.card {
+    border: 1px solid #ccc;
+    padding: 20px;
+    border-radius: 10px;
+    width: 200px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.map-container {
+    position: absolute;
+    width: 400px;
+    height: 300px;
+    border: 2px solid #000;
+    cursor: grab;
+}

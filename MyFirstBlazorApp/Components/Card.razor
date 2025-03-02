@@ -1,0 +1,12 @@
+﻿@using MyFirstBlazorApp.Models
+
+<div class="card">
+    <h3>@CardData.Title</h3>
+    <p>@CardData.Description</p>
+    <button @onclick="CardData.OnButtonClick">Click Me</button>
+</div>
+
+@code {
+    [Parameter]
+    public CardBase CardData { get; set; }
+}

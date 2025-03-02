@@ -1,0 +1,26 @@
+﻿@using MyFirstBlazorApp.Models
+@inherits MapBase
+@inject IJSRuntime JSRuntime
+
+<div class="map-container" @ref="mapElement" style="left: @(X)px; top: @(Y)px;">
+    <!-- Map content goes here -->
+    <img src="/images/map.png" alt="Interactive Map" />
+</div>
+
+@code {
+    private ElementReference mapElement;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await JSRuntime.InvokeVoidAsync("initializeMap", mapElement);
+        }
+    }
+
+    public void MoveMap(int deltaX, int deltaY)
+    {
+        Move(deltaX, deltaY);
+        StateHasChanged(); // Update UI
+    }
+}

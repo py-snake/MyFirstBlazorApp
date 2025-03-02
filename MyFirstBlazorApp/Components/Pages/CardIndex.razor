@@ -1,0 +1,38 @@
+﻿@page "/cardindex"
+@using MyFirstBlazorApp.Models
+@using MyFirstBlazorApp.Components
+
+<h1>Interactive Cards and Map</h1>
+
+<div class="card-container">
+    <Card CardData="card1" />
+    <Card CardData="card2" />
+</div>
+
+<InteractiveMap @ref="map" />
+
+@code {
+    private InteractiveMap map; // Ensure this is of type InteractiveMap
+    private CardBase card1 = new CardBase
+        {
+            Title = "Card 1",
+            Description = "This is the first card.",
+            OnButtonClick = () => Console.WriteLine("Button on Card 1 clicked!")
+        };
+
+    private CardBase card2 = new CardBase
+        {
+            Title = "Card 2",
+            Description = "This is the second card.",
+            OnButtonClick = () => Console.WriteLine("Button on Card 2 clicked!")
+        };
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            // Example: Move the map programmatically
+            map.MoveMap(100, 100);
+        }
+    }
+}
