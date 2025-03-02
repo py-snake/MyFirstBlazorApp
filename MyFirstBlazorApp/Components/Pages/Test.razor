@@ -10,16 +10,14 @@
 <button class="bigredbutton" @onclick="ResetNum">Reset</button>
 
 <div>
-    <p>Enter <input type="number" @bind="textMaxLength"/> characters into the following form (Remaining: @RemainingTextCharacters()):</p>
-    <input type="text" @oninput="HandleInput" maxlength="@textMaxLength"/>
-    <br/>
+    <p>Enter <input type="number" @bind="textMaxLength" @oninput="SetTextMaxLength" min="1" /> characters into the following form (Remaining: @RemainingTextCharacters()):</p>
+    <input type="text" @oninput="HandleInput" maxlength="@textMaxLength" />
+    <br />
     <div class="progress-container">
         <div class="progress-bar" style="width: @UsedTextLengthPercent()%;"></div>
     </div>
     <p>@text</p>
 </div>
-
-
 
 @code {
     private int num = 0;
@@ -47,19 +45,27 @@
 
     private int RemainingTextCharacters()
     {
-        return textMaxLength - text?.Length ?? 0;
+        return textMaxLength - (text?.Length ?? 0);
     }
 
     private int UsedTextLengthPercent()
     {
         if (textMaxLength <= 0)
         {
-            return 0;
+            return 0; // Avoid division by zero or negative values
         }
 
-        double percent = (text?.Length ?? 0 / textMaxLength) * 10;
-        return (int)Math.Round(percent, 0);
+        double usedLength = text?.Length ?? 0;
+        double percent = (usedLength / textMaxLength) * 100; // Calculate percentage
+        percent = Math.Min(percent, 100); // Ensure percentage does not exceed 100%
+        return (int)Math.Round(percent, 0); // Round to the nearest integer
     }
 
+    private void SetTextMaxLength(ChangeEventArgs e)
+    {
+        if (int.TryParse(e.Value?.ToString(), out int newLength) && newLength > 0)
+        {
+            textMaxLength = newLength;
+        }
+    }
 }
-
