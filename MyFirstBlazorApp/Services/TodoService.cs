@@ -24,5 +24,20 @@ namespace MyFirstBlazorApp.Services
         {
             return _todoItems.ToList();
         }
+
+        public void Delete(TodoItem item)
+        {
+            _todoItems.Remove(item);
+        }
+
+        public void Complete(TodoItem item)
+        {
+            item.Completed = true;
+        }
+
+        public void Uncomplete(TodoItem item)
+        {
+            item.Completed = false;
+        }
     }
 }

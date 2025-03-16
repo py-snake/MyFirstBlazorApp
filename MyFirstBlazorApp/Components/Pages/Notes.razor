@@ -9,15 +9,20 @@
 
 <div class="border" style="padding: 20px">
     <h4>New item</h4>
-    <TodoItemForm OnItemAdded="@itemsChanged"></TodoItemForm>
+    <TodoItemForm OnItemAdded="@ItemsChanged"></TodoItemForm>
 </div>
 
 <div class="border" style="padding: 20px; margin-top: 20px">
     <div style="display: flex; flex-direction: column">
         @foreach (var todo in Todos)
         {
-            <div class="flex-container" style="margin-bottom: 10px;">
-                <div class="@ItemClass(todo)" style="width: 280px;">@todo.Text</div>
+            <div style="display: flex; margin-bottom: 10px;">
+                <div style="display: flex; align-items: center; margin-bottom: 10px;">
+                    <div class="@ItemClass(todo)" style="width: 280px;">@todo.Text</div>
+                </div>
+                <div>
+                    <button class="btn btn-danger" onclick="@(() => DeleteItem(todo))">Delete</button>
+                </div>
             </div>
         }
     </div>
@@ -35,7 +40,7 @@
         Todos.Add(new TodoItem("Item 2"));
         Todos.Add(new TodoItem("Item 3"));
         //base.OnInitialized();
-    */
+        */
     }
 
     public string ItemClass(TodoItem item)
@@ -52,6 +57,18 @@
     public void DeleteItem(TodoItem item)
     {
         _todoService.Delete(item);
+        ItemsChanged();
+    }
+
+    public void CompleteItem(TodoItem item)
+    {
+        _todoService.Complete(item);
+        ItemsChanged();
+    }
+
+    public void UncompleteItem(TodoItem item)
+    {
+        _todoService.Uncomplete(item);
         ItemsChanged();
     }
 }
